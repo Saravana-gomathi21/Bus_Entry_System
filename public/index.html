@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College Bus Entry Monitor</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div>
+        <span class="badge">Bus Entry System</span>
+        <h1>College Bus Gate Monitor</h1>
+        <p>Scan the number plate with camera and record bus entry / exit instantly.</p>
+      </div>
+      <div class="stat-card">
+        <div>
+          <h2 id="total-count">--</h2>
+          <p>Total records</p>
+        </div>
+        <div>
+          <h2 id="entry-count">--</h2>
+          <p>Entries</p>
+        </div>
+        <div>
+          <h2 id="exit-count">--</h2>
+          <p>Exits</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel grid-two">
+        <div class="card camera-card">
+          <div class="card-header">
+            <h2>Camera Scan</h2>
+            <span>Live capture for license plate detection</span>
+          </div>
+          <div class="camera-frame">
+            <video id="camera" autoplay muted playsinline></video>
+            <canvas id="captureCanvas" class="hidden"></canvas>
+          </div>
+          <div class="controls-row">
+            <button id="startCamera" class="btn btn-secondary">Start Camera</button>
+            <button id="captureBtn" class="btn btn-primary">Capture Plate</button>
+          </div>
+          <div class="camera-note">Tip: point at the number plate and press capture.</div>
+        </div>
+
+        <div class="card entry-card">
+          <div class="card-header">
+            <h2>Record Bus</h2>
+            <span>Submit captured plate details into the system</span>
+          </div>
+          <form id="recordForm">
+            <label>
+              Plate Number
+              <input id="plateNumber" name="plateNumber" type="text" placeholder="ABC-1234" required />
+            </label>
+            <label>
+              Status
+              <select id="status" name="status" required>
+                <option value="Entry">Entry</option>
+                <option value="Exit">Exit</option>
+              </select>
+            </label>
+            <label>
+              Driver Name
+              <input id="driverName" name="driverName" type="text" placeholder="Driver Name" />
+            </label>
+            <label>
+              Route
+              <input id="route" name="route" type="text" placeholder="Route or direction" />
+            </label>
+            <button type="submit" class="btn btn-primary">Save Record</button>
+            <p id="feedback" class="feedback"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="panel records-panel">
+        <div class="card wide-card">
+          <div class="card-header">
+            <h2>Recent Activity</h2>
+            <span>Latest bus entry and exit records</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Plate</th>
+                  <th>Status</th>
+                  <th>Driver</th>
+                  <th>Route</th>
+                </tr>
+              </thead>
+              <tbody id="recordsTable">
+                <tr><td colspan="5">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="js/app.js"></script>
+</body>
+</html>
